@@ -1,21 +1,48 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-import express from 'express';
-import {connectDB} from './lib/db.js';
+
+import express from "express";
+import cors from "cors";
+
+import { connectDB } from "./lib/db.js";
+import { serve } from "inngest/express";
+import { inngest, functions } from "./lib/inngest.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+/* -------------------- Middleware -------------------- */
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      process.env.FRONTEND_URL,
+    ].filter(Boolean),
+    credentials: true,
+  })
+);
+
+/* -------------------- Health Check -------------------- */
+app.get("/health", (_req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
+/* -------------------- Inngest Endpoint -------------------- */
+app.use("/api/inngest", serve({ client: inngest, functions }));
+
+
+/* -------------------- Start Server -------------------- */
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => console.log("Server is running on port:", PORT));
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
   } catch (error) {
     console.error("💥 Error starting the server", error);
+    process.exit(1);
   }
 };
 
