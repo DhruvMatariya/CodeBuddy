@@ -9,6 +9,7 @@ import {clerkMiddleware} from "@clerk/express";
 import { connectDB } from "./lib/db.js";
 import { inngest, functions } from "./lib/inngest.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import sessionRoutes from "./routes/sessionRoute.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -33,6 +34,7 @@ app.get("/health", (_req, res) => {
 /* -------------------- Endpoint -------------------- */
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
+app.use("/api/sessions", sessionRoutes);
 
 /* -------------------- Start Server -------------------- */
 const startServer = async () => {
