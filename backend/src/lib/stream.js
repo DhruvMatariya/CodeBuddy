@@ -1,6 +1,3 @@
-console.log("STREAM_API_KEY:", process.env.STREAM_API_KEY ? "LOADED" : "MISSING");
-console.log("STREAM_API_SECRET:", process.env.STREAM_API_SECRET ? "LOADED" : "MISSING");
-
 import { StreamChat } from "stream-chat";
 import { StreamClient } from "@stream-io/node-sdk";
 
