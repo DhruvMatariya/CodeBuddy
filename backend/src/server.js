@@ -32,6 +32,13 @@ app.get("/health", (_req, res) => {
 });
 
 /* -------------------- Endpoint -------------------- */
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    status: "ok",
+    service: "CodeBuddy Backend",
+  });
+});
+
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 app.use("/api/sessions", sessionRoutes);
