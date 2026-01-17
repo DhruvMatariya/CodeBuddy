@@ -1,8 +1,16 @@
 import axios from "axios";
-console.log("BACKEND URL =", import.meta.env.VITE_BACKEND_URL);
+import { getToken } from "@clerk/clerk-react";
+
 const axiosInstance = axios.create({
-   baseURL: "https://codebuddy-xogz.onrender.com/api",
-  withCredentials: true, // by adding this field browser will send the cookies to server automatically, on every single req
+  baseURL: import.meta.env.VITE_BACKEND_URL, // ends with /api
+});
+
+axiosInstance.interceptors.request.use(async (config) => {
+  const token = await getToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
 
 export default axiosInstance;
