@@ -35,7 +35,7 @@ function HomePage() {
 
             <div className="flex flex-col">
               <span className="font-extrabold text-xl tracking-wider">
-                Talent IQ
+                CodeBuddy
               </span>
               <span className="text-xs text-white/60 tracking-wide -mt-1">
                 Code Together
