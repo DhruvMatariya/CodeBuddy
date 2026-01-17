@@ -35,8 +35,11 @@ function SessionPage() {
     useStreamClient(session, loadingSession, isHost, isParticipant);
 
   const problemData = session?.problem
-    ? Object.values(PROBLEMS).find((p) => p.title === session.problem)
-    : null;
+  ? Object.values(PROBLEMS).find(
+      (p) => p.title?.trim() === session.problem?.trim()
+    ) ?? null
+  : null;
+
 
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
   const [code, setCode] = useState(
