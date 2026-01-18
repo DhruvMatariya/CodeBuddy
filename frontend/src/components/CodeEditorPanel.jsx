@@ -10,18 +10,24 @@ function CodeEditorPanel({
   onCodeChange,
   onRunCode,
 }) {
+  // ✅ SAFE fallback language (prevents undefined.icon crash)
+  const fallbackLanguageKey = Object.keys(LANGUAGE_CONFIG)[0];
+  const language =
+    LANGUAGE_CONFIG[selectedLanguage] || LANGUAGE_CONFIG[fallbackLanguageKey];
+
   return (
     <div className="h-full flex flex-col bg-[#0b0f14] text-white">
-
       {/* TOP BAR */}
       <div className="flex items-center justify-between px-4 py-3 bg-black/50 backdrop-blur-xl border-b border-white/10">
-
         <div className="flex items-center gap-3">
-          <img
-            src={LANGUAGE_CONFIG[selectedLanguage].icon}
-            alt={LANGUAGE_CONFIG[selectedLanguage].name}
-            className="size-6 opacity-90"
-          />
+          {/* ✅ SAFE icon rendering */}
+          {language?.icon && (
+            <img
+              src={language.icon}
+              alt={language.name}
+              className="size-6 opacity-90"
+            />
+          )}
 
           <select
             className="select select-sm bg-white/5 border border-white/10 text-white focus:outline-none focus:border-orange-400"
@@ -63,7 +69,7 @@ function CodeEditorPanel({
       <div className="flex-1">
         <Editor
           height="100%"
-          language={LANGUAGE_CONFIG[selectedLanguage].monacoLang}
+          language={language.monacoLang}
           value={code}
           onChange={onCodeChange}
           theme="vs-dark"
