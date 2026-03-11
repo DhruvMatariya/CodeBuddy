@@ -1,6 +1,6 @@
 <h1 align="center">✨ CodeBuddy ✨</h1>
-A platform to simulate your technical interview with your buddy to improve yourself and think out loud.
-
+<p>Platform to simulate your technical interview with your buddy to improve yourself and think out loud.</p> 
+<p>Live Link : https://code-with-us-buddy.netlify.app/</p>
 ✨ Highlights:
 
 - 🧑‍💻 VSCode-Powered Code Editor
